@@ -2,8 +2,6 @@ import { z } from "zod";
 
 const id = z.preprocess((x: unknown) => Number(x), z.number());
 
-const idParams = z.object({ id });
-
 const patchRefine = (data: object) =>
   Object.keys(data).some((key) => data[key as keyof typeof data] !== undefined);
 
@@ -27,14 +25,13 @@ export const signupSchema = z.object({
     .max(32, "Password cannot be more than 32 characters"),
 });
 
-export const loginSchema = z.object({
+export const LoginSchema = z.object({
   email,
   password: z.string().min(1, "Password is required"),
 });
 
-export const putUserSchema = z.object({ firstName, lastName });
-
-export const patchUserSchema = putUserSchema
+export const patchUserSchema = z
+  .object({ firstName, lastName })
   .partial()
   .refine(patchRefine, { message: "Atleast one field must be present" });
 

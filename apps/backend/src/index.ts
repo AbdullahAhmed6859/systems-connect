@@ -4,7 +4,7 @@ import morgan from "morgan";
 import { ENV, PORT } from "./config";
 import { ok } from "./utils/sendResponse";
 import { errorHandler } from "./middleware/errorHandler";
-// import { prisma } from "./prismaClient";
+import { prisma } from "@repo/db/client";
 
 const whitelist = ["http://localhost:3000"];
 const corsOptions = {
@@ -30,8 +30,8 @@ app.get("/", (req, res) => ok(res, { message: "Welcome to TodoApp API" }));
 app.use(errorHandler);
 
 app.listen(PORT, async () => {
-  //   await prisma.$connect();
-  //   console.log("Connected to db");
+  await prisma.$connect();
+  console.log("Connected to db");
   if (ENV === "DEV") {
     console.log(`App is running on http://localhost:${PORT}`);
   }
