@@ -1,12 +1,12 @@
 import express from "express";
-// import cors from "cors";
+import cors from "cors";
 import morgan from "morgan";
 import { ENV, PORT } from "./config";
 import { ok } from "./utils/sendResponse";
 import { errorHandler } from "./middleware/errorHandler";
 // import { prisma } from "./prismaClient";
 
-const whitelist = ["http://localhost:5173"];
+const whitelist = ["http://localhost:3000"];
 const corsOptions = {
   // @ts-ignore
   origin: function (origin, callback) {
@@ -20,7 +20,7 @@ const corsOptions = {
 };
 
 const app = express();
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 if (ENV === "DEV") app.use(morgan("dev"));
@@ -29,7 +29,7 @@ app.get("/", (req, res) => ok(res, { message: "Welcome to TodoApp API" }));
 
 app.use(errorHandler);
 
-app.listen(3000, async () => {
+app.listen(PORT, async () => {
   //   await prisma.$connect();
   //   console.log("Connected to db");
   if (ENV === "DEV") {
