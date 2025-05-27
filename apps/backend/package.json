@@ -13,17 +13,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@repo/db": "*",
+    "@repo/zod-schemas": "*",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "morgan": "^1.10.0",
-    "@repo/db": "*"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
-    "@repo/zod-schemas": "*",
     "@types/cors": "^2.8.18",
-    "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.2",
     "@types/morgan": "^1.9.9",
     "tsx": "^4.19.4",
