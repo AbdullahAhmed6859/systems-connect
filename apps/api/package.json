@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "backend",
+  "name": "api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

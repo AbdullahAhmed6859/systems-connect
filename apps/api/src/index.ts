@@ -25,7 +25,7 @@ app.use(express.json());
 
 if (ENV === "DEV") app.use(morgan("dev"));
 
-app.get("/", (req, res) => ok(res, { message: "Welcome to TodoApp API" }));
+app.get("/", (req, res) => ok(res, { message: "Welcome to backend API" }));
 
 app.use(errorHandler);
 
