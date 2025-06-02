@@ -1,22 +1,22 @@
-// import type { ExpressHandler } from "../types/expressHandlers";
-// import { verifyToken } from "../utils/jwt";
+import type { ExpressHandler } from "../types/expressHandlers";
+import { verifyToken } from "@repo/jwt/utils";
 
-// export const protect: ExpressHandler = (req, res, next) => {
-//   const authHeader = req.headers.authorization;
+export const protect: ExpressHandler = (req, res, next) => {
+  const authHeader = req.headers.authorization;
 
-//   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-//     res.status(401).json({ error: "Authorization header missing or invalid" });
-//     return;
-//   }
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    res.status(401).json({ error: "Authorization header missing or invalid" });
+    return;
+  }
 
-//   const token = authHeader.split(" ")[1] as string;
+  const token = authHeader.split(" ")[1] as string;
 
-//   try {
-//     const decoded = verifyToken(token) as { id: number };
-//     req.userId = decoded.id;
-//     next();
-//   } catch (err) {
-//     res.status(401).json({ error: "Invalid or expired token" });
-//     return;
-//   }
-// };
+  try {
+    const decoded = verifyToken(token) as { id: number };
+    req.userId = decoded.id;
+    next();
+  } catch (err) {
+    res.status(401).json({ error: "Invalid or expired token" });
+    return;
+  }
+};
