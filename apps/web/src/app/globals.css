@@ -1,4 +1,4 @@
 @import "tailwindcss";
 @import "@repo/shadcn/styles/default.css";
 
-@source '../../../packages/shadcn';
+@source '../../../../packages/shadcn';
