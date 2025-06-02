@@ -5,6 +5,7 @@ import { ENV, PORT } from "./config";
 import { ok } from "./utils/sendResponse";
 import { errorHandler } from "./middleware/errorHandler";
 import { prisma } from "@repo/db/client";
+import { protect } from "./middleware/auth";
 
 const whitelist = ["http://localhost:3000"];
 const corsOptions = {
@@ -25,7 +26,9 @@ app.use(express.json());
 
 if (ENV === "DEV") app.use(morgan("dev"));
 
-app.get("/", (req, res) => ok(res, { message: "Welcome to backend API" }));
+app.get("/", protect, (req, res) =>
+  ok(res, { message: "Welcome to backend API" })
+);
 
 app.use(errorHandler);
 
