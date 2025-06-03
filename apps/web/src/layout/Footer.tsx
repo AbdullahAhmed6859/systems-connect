@@ -1,5 +1,6 @@
 import { Button } from "@repo/shadcn/components/ui/button";
 import SystemsLogo from "@repo/shadcn/components/SystemsLogo";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -8,10 +9,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <SystemsLogo />
-              <span className="text-lg font-semibold">Systems Connect</span>
-            </div>
+            {/* <div className=""> */}
+            <SystemsLogo />
+            {/* </div> */}
             <p className="text-sm text-muted-foreground">
               Building the future of connected systems and seamless
               integrations.
@@ -23,36 +23,36 @@ export default function Footer() {
             <h3 className="text-sm font-semibold">Product</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a
+                <Link
                   href="/features"
                   className="hover:text-foreground transition-colors"
                 >
                   Features
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/pricing"
                   className="hover:text-foreground transition-colors"
                 >
                   Pricing
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/integrations"
                   className="hover:text-foreground transition-colors"
                 >
                   Integrations
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/docs"
                   className="hover:text-foreground transition-colors"
                 >
                   Documentation
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -62,36 +62,36 @@ export default function Footer() {
             <h3 className="text-sm font-semibold">Company</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a
+                <Link
                   href="/about"
                   className="hover:text-foreground transition-colors"
                 >
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/careers"
                   className="hover:text-foreground transition-colors"
                 >
                   Careers
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/contact"
                   className="hover:text-foreground transition-colors"
                 >
                   Contact
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/blog"
                   className="hover:text-foreground transition-colors"
                 >
                   Blog
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -155,24 +155,24 @@ export default function Footer() {
             © {new Date().getFullYear()} Systems Connect. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <a
+            <Link
               href="/privacy"
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               Privacy Policy
-            </a>
-            <a
+            </Link>
+            <Link
               href="/terms"
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               Terms of Service
-            </a>
-            <a
+            </Link>
+            <Link
               href="/cookies"
               className="text-xs text-muted-foreground hover:text-foreground transition-colors"
             >
               Cookie Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>

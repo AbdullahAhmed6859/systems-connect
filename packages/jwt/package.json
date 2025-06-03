@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "exports": {
-    "./secret": "./src/secret.ts",
     "./utils": "./src/utils.ts"
   },
   "dependencies": {
