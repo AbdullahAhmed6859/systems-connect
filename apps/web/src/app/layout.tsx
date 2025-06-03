@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@repo/shadcn/providers/theme-provider";
 import Navbar from "../layout/Navbar";
+import Footer from "../layout/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,12 +21,12 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
+          // disableTransitionOnChange
         >
-          <div className="w-full">
+          <div className="w-full min-h-screen">
             <Navbar />
-            <main>{children}</main>
-            {/* <Footer/> */}
+            <main className="flex-1">{children}</main>
+            <Footer />
           </div>
         </ThemeProvider>
       </body>
