@@ -1,9 +1,5 @@
 import { z } from "zod";
-
-const id = z.preprocess((x: unknown) => Number(x), z.number());
-
-const patchRefine = (data: object) =>
-  Object.keys(data).some((key) => data[key as keyof typeof data] !== undefined);
+import { id, patchRefine } from "./common";
 
 const createNameSchema = (prefix: string) =>
   z

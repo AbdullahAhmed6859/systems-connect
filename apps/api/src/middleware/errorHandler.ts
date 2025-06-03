@@ -1,12 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 import {
+  badRequest,
   sendResponse,
   serverError,
+  unauthorized,
   zodErrorBadRequest,
 } from "../utils/sendResponse";
 import { AppError } from "../utils/AppError";
 import { ENV } from "../config";
+import {
+  JsonWebTokenError,
+  NotBeforeError,
+  TokenExpiredError,
+} from "@repo/jwt/types";
 
 export const errorHandler = (
   err: unknown,
@@ -27,36 +34,26 @@ export const errorHandler = (
     });
   }
 
-  // Handle PostgreSQL errors
-  if (typeof err === "object" && err !== null && "code" in err) {
-    const pgError = err as {
-      code: string;
-      detail?: string;
-      constraint?: string;
-    };
+  // JWT errors
+  if (err instanceof TokenExpiredError) {
+    return unauthorized(res, {
+      errors: { token: "expired" },
+      message: "Your session has expired. Please login again.",
+    });
+  }
 
-    // Handle unique constraint violations
-    if (pgError.code === "23505") {
-      return sendResponse(res, 409, {
-        message: "Resource already exists",
-        errors: {
-          detail:
-            pgError.detail || "A resource with these details already exists",
-          constraint: pgError.constraint,
-        },
-      });
-    }
+  if (err instanceof NotBeforeError) {
+    return unauthorized(res, {
+      errors: { token: "inActive" },
+      message: "Token is not active yet.",
+    });
+  }
 
-    // Handle foreign key violations
-    if (pgError.code === "23503") {
-      return sendResponse(res, 400, {
-        message: "Invalid reference",
-        errors: {
-          detail: pgError.detail || "Referenced resource does not exist",
-          constraint: pgError.constraint,
-        },
-      });
-    }
+  if (err instanceof JsonWebTokenError) {
+    return badRequest(res, {
+      errors: { token: "Invalid token" },
+      message: "Token is malformed or invalid.",
+    });
   }
 
   console.error(err);
@@ -64,7 +61,7 @@ export const errorHandler = (
   if (err instanceof Error) {
     return serverError(
       res,
-      ENV === "production" ? "Internal server error" : err.message
+      ENV === "PROD" ? "Internal server error" : err.message
     );
   }
 

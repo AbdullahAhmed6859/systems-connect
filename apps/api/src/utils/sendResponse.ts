@@ -16,6 +16,11 @@ type DataMessage = {
   message?: Message;
 };
 
+type ErrorMessage = {
+  errors?: Errors;
+  message?: Message;
+};
+
 type ApiResponse = ResponseOptions & {
   success: boolean;
 };
@@ -46,6 +51,12 @@ export const created = (res: Response, options: DataMessage = {}) =>
   sendResponse(res, 201, options);
 
 export const deleted = (res: Response) => sendResponse(res, 204);
+
+export const badRequest = (res: Response, options: ErrorMessage = {}) =>
+  sendResponse(res, 400, options);
+
+export const unauthorized = (res: Response, options: ErrorMessage = {}) =>
+  sendResponse(res, 401, options);
 
 export const zodErrorBadRequest = (res: Response, err: ZodError) => {
   const formattedErrors: Record<string, string> = {};

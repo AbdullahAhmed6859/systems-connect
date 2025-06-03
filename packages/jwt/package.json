@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "exports": {
-    "./utils": "./src/utils.ts"
+    "./utils": "./src/utils.ts",
+    "./types": "./src/types.ts"
   },
   "dependencies": {
     "dotenv": "^16.5.0",
