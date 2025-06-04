@@ -9,12 +9,12 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "*",
-    "prisma": "^6.8.2"
+    "prisma": "^6.9.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^6.8.2"
+    "@prisma/client": "^6.9.0"
   }
 }
