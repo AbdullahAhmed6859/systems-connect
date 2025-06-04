@@ -14,39 +14,44 @@ datasource db {
 }
 
 model Post {
-  id            Int      @id @default(autoincrement())
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
-  title         String
-  content       String?
-  published     Boolean  @default(false)
-  author        Profile  @relation(fields: [authorId], references: [userId])
-  authorId      Int      @map("author_id")
-  profileUserId Int?
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  title     String
+  content   String?
+  published Boolean   @default(false)
+  author    Profile   @relation(fields: [authorId], references: [userId], onDelete: Cascade)
+  authorId  Int       @map("author_id")
+  Like      Like[]
+  Comment   Comment[]
 
   @@index([authorId])
+  @@index([createdAt])
+  @@index([published, createdAt])
   @@map("post")
 }
 
 model Profile {
-  userId    Int      @id @unique @map("user_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  firstName String   @map("first_name")
-  lastName  String?  @map("last_name")
+  userId    Int       @id @unique @map("user_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  firstName String    @map("first_name")
+  lastName  String?   @map("last_name")
   bio       String?
   picture   String?
-  user      User     @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   posts     Post[]
-  followers Follow[] @relation("followers")
-  following Follow[] @relation("following")
+  followers Follow[]  @relation("followers")
+  following Follow[]  @relation("following")
+  likes     Like[]
+  comments  Comment[]
 
   @@map("profile")
 }
 
 model User {
   id        Int      @id @unique @default(autoincrement())
-  googleId  String   @unique
+  googleId  String   @unique @map("google_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   email     String   @unique
@@ -60,11 +65,39 @@ model Follow {
   createdAt  DateTime @default(now()) @map("created_at")
   followerId Int      @map("follower_id")
   followeeId Int      @map("followee_id")
-  follower   Profile  @relation(name: "following", fields: [followerId], references: [userId])
-  followee   Profile  @relation(name: "followers", fields: [followeeId], references: [userId])
+  follower   Profile  @relation(name: "following", fields: [followerId], references: [userId], onDelete: Cascade)
+  followee   Profile  @relation(name: "followers", fields: [followeeId], references: [userId], onDelete: Cascade)
 
   @@unique([followerId, followeeId])
   @@index([followerId])
   @@index([followeeId])
   @@map("follow")
+}
+
+model Like {
+  id        Int      @id @unique @default(autoincrement())
+  userId    Int      @map("user_id")
+  postId    Int      @map("post_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      Profile  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@index([postId])
+  @@map("like")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  content   String
+  postId    Int      @map("post_id")
+  userId    Int      @map("user_id")
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      Profile  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([userId])
+  @@map("comment")
 }
