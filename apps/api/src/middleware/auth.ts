@@ -1,34 +1,23 @@
-import type { ExpressHandler } from "../types/expressHandlers";
 import { verifyToken } from "@repo/jwt/utils";
+import { catchAsync } from "../utils/catchAsync";
 import { AppError } from "../utils/AppError";
 
-export const protect: ExpressHandler = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+export interface UserPayload {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  picture?: string;
+  iat: number;
+  exp?: number; // optional, may not exist if no expiresIn used
+}
 
-  if (!authHeader) {
-    throw AppError.unauthorized(
-      "Please log in or create an account to get access",
-      {
-        token: "no authorization token found",
-      }
-    );
-  }
+export const protect = catchAsync(async (req, res, next) => {
+  const token = req.cookies.accessToken;
+  if (!token)
+    throw AppError.unauthorized("No token found", { token: "No token found" });
 
-  if (!authHeader.startsWith("Bearer ")) {
-    throw AppError.badRequest(`Token must start with "Bearer "`, {
-      token: "Invalid token format",
-    });
-  }
-
-  const token = authHeader.split(" ")[1] as string;
-
-  try {
-    const decoded = verifyToken(token) as { id: number };
-    req.userId = decoded.id;
-    next();
-  } catch (err) {
-    throw AppError.unauthorized("You donot have access to this route", {
-      token: "Invalid or expired",
-    });
-  }
-};
+  const decoded = (await verifyToken(token)) as UserPayload;
+  req.user = decoded;
+  next();
+});

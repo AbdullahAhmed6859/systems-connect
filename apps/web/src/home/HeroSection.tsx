@@ -1,7 +1,7 @@
 import { Button } from "@repo/shadcn/components/ui/button";
-import { GoogleIcon } from "@repo/shadcn/components/ui/icons";
 import { ArrowRight, Users, MessageCircle } from "lucide-react";
 import Image from "next/image";
+import AuthButton from "../auth/AuthButton";
 
 function HeroSection() {
   return (
@@ -25,10 +25,7 @@ function HeroSection() {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg">
-                <GoogleIcon className="w-5 h-5 mr-2" />
-                Sign in with Google
-              </Button>
+              <AuthButton size="lg" type="page" />
               <Button size="lg" variant="outline">
                 Learn More
                 <ArrowRight className="w-4 h-4 ml-2" />

@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@repo/shadcn/providers/theme-provider";
 import Navbar from "../layout/Navbar";
 import Footer from "../layout/Footer";
+import { AuthProvider } from "../auth";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,11 +24,13 @@ export default function RootLayout({
           enableSystem
           // disableTransitionOnChange
         >
-          <div className="w-full min-h-screen">
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
+          <AuthProvider>
+            <div className="w-full min-h-screen">
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

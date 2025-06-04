@@ -1,8 +1,9 @@
 import "express";
+import { UserPayload } from "../middleware/auth";
 declare global {
   namespace Express {
     interface Request {
-      userId?: number;
+      user?: UserPayload;
     }
   }
 }

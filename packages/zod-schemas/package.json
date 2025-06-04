@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "exports": {
-    "./types": "./src/index.ts"
+    "./user": "./src/user.ts",
+    "./googleOAuth": "./src/googleOAuth.ts"
   },
   "devDependencies": {
     "@repo/typescript-config": "*"
