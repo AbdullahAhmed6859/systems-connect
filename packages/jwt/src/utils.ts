@@ -5,7 +5,7 @@ dotenv.config();
 
 const ALGORITHM = "HS256";
 
-export async function generateToken(payload: {
+export function generateToken(payload: {
   [key: string]: any;
 }): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -16,7 +16,7 @@ export async function generateToken(payload: {
   });
 }
 
-export async function verifyToken(token: string): Promise<jwt.JwtPayload> {
+export function verifyToken(token: string): Promise<jwt.JwtPayload> {
   return new Promise((resolve, reject) => {
     jwt.verify(
       token,

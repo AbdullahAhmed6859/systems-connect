@@ -132,10 +132,13 @@ function Navbar() {
                 </div>
               </>
             ) : (
-              <Button onClick={handleLogin}>
+              <Link
+                href="http://localhost:3500/auth/google"
+                className={buttonVariants()}
+              >
                 <GoogleIcon className="w-4 h-4 mr-2" />
                 Sign in with Google
-              </Button>
+              </Link>
             )}
             <ModeToggle />
           </div>
