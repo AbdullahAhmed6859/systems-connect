@@ -7,14 +7,14 @@ import { google } from "googleapis";
 import { generateToken } from "@repo/jwt/utils";
 import { catchAsync } from "../utils/catchAsync";
 import { callbackQuerySchema } from "@repo/zod-schemas/googleOAuth";
+import { userSchema } from "@repo/zod-schemas/user";
+import { FRONT_END_URL } from "../config";
 
 const router = Router();
 
 router.get("/", function (req, res, next) {
   const redirectTo =
-    (req.query.redirect_to as string) ||
-    req.get("Referrer") ||
-    "http://localhost:3000";
+    (req.query.redirect_to as string) || req.get("Referrer") || FRONT_END_URL;
 
   const url = GOOGLE_SHARED_CLIENT.generateAuthUrl({
     scope: ["openid", "profile", "email"],
@@ -39,13 +39,13 @@ router.get(
 
     console.log(googleUser);
 
-    const userPayload = {
+    const userPayload = userSchema.parse({
       id: googleUser.id,
       email: googleUser.email,
       firstName: googleUser.given_name,
       lastName: googleUser.family_name,
       picture: googleUser.picture,
-    };
+    });
 
     const jwtToken = await generateToken(userPayload);
 
@@ -56,9 +56,7 @@ router.get(
       //   maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
     });
 
-    const redirectUrl = state
-      ? decodeURIComponent(state)
-      : "http://localhost:3000";
+    const redirectUrl = state ? decodeURIComponent(state) : FRONT_END_URL;
 
     res.redirect(redirectUrl); // nextjs app
   })

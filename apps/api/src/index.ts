@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import { ENV, PORT } from "./config";
+import { ENV, FRONT_END_URL, PORT } from "./config";
 import { ok } from "./utils/sendResponse";
 import { errorHandler } from "./middleware/errorHandler";
 import { prisma } from "@repo/db/client";
@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 import { authRouter } from "./routers/authRouter";
 import { protect } from "./middleware/auth";
 
-const whitelist = ["http://localhost:3000"];
+const whitelist = [FRONT_END_URL];
 const corsOptions = {
   // @ts-ignore
   origin: function (origin, callback) {

@@ -1,5 +1,5 @@
 import { Button } from "@repo/shadcn/components/ui/button";
-import SystemsLogo from "@repo/shadcn/components/SystemsLogo";
+import SystemsLogo from "./SystemsLogo";
 import Link from "next/link";
 
 export default function Footer() {

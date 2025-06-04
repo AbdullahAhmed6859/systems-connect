@@ -16,9 +16,8 @@ router.get(
   })
 );
 
-router.get(
+router.post(
   "/logout",
-  protect,
   catchAsync(async (req, res, next) => {
     res.clearCookie("accessToken");
     ok(res, { message: "You have been logged out successfully" });

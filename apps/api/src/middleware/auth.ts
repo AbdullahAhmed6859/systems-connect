@@ -15,7 +15,7 @@ export interface UserPayload {
 export const protect = catchAsync(async (req, res, next) => {
   const token = req.cookies.accessToken;
   if (!token)
-    throw AppError.badRequest("No token found", { token: "No token found" });
+    throw AppError.unauthorized("No token found", { token: "No token found" });
 
   const decoded = (await verifyToken(token)) as UserPayload;
   req.user = decoded;

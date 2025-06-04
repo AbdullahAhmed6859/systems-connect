@@ -11,25 +11,13 @@ const firstName = createNameSchema("first ");
 const lastName = createNameSchema("last ");
 const email = z.string().email();
 
-export const signupSchema = z.object({
+export const userSchema = z.object({
+  id,
+  email,
   firstName,
   lastName,
-  email,
-  password: z
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .max(32, "Password cannot be more than 32 characters"),
+  picture: z.string().optional(),
 });
-
-export const LoginSchema = z.object({
-  email,
-  password: z.string().min(1, "Password is required"),
-});
-
-export const patchUserSchema = z
-  .object({ firstName, lastName })
-  .partial()
-  .refine(patchRefine, { message: "Atleast one field must be present" });
 
 export const userId = id;
 export const userIdParams = z.object({ userId });
