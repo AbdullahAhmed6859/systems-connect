@@ -18,9 +18,9 @@ model Post {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   title     String
-  content   String?
+  content   String?   @db.Text
   published Boolean   @default(false)
-  author    Profile   @relation(fields: [authorId], references: [userId], onDelete: Cascade)
+  author    User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId  Int       @map("author_id")
   Like      Like[]
   Comment   Comment[]
@@ -30,32 +30,21 @@ model Post {
   @@index([published, createdAt])
   @@map("post")
 }
-
-model Profile {
-  userId    Int       @id @unique @map("user_id")
+model User {
+  id        Int      @id @unique @default(autoincrement())
+  googleId  String   @unique @map("google_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   firstName String    @map("first_name")
   lastName  String?   @map("last_name")
+  email     String    @unique
   bio       String?
   picture   String?
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   posts     Post[]
   followers Follow[]  @relation("followers")
   following Follow[]  @relation("following")
   likes     Like[]
   comments  Comment[]
-
-  @@map("profile")
-}
-
-model User {
-  id        Int      @id @unique @default(autoincrement())
-  googleId  String   @unique @map("google_id")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  email     String   @unique
-  profile   Profile?
 
   @@map("user")
 }
@@ -65,8 +54,8 @@ model Follow {
   createdAt  DateTime @default(now()) @map("created_at")
   followerId Int      @map("follower_id")
   followeeId Int      @map("followee_id")
-  follower   Profile  @relation(name: "following", fields: [followerId], references: [userId], onDelete: Cascade)
-  followee   Profile  @relation(name: "followers", fields: [followeeId], references: [userId], onDelete: Cascade)
+  follower   User  @relation(name: "following", fields: [followerId], references: [id], onDelete: Cascade)
+  followee   User  @relation(name: "followers", fields: [followeeId], references: [id], onDelete: Cascade)
 
   @@unique([followerId, followeeId])
   @@index([followerId])
@@ -79,7 +68,7 @@ model Like {
   userId    Int      @map("user_id")
   postId    Int      @map("post_id")
   createdAt DateTime @default(now()) @map("created_at")
-  user      Profile  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user      User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([userId, postId])
@@ -95,7 +84,7 @@ model Comment {
   postId    Int      @map("post_id")
   userId    Int      @map("user_id")
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user      Profile  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  user      User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([postId])
   @@index([userId])

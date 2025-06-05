@@ -7,8 +7,9 @@ import { google } from "googleapis";
 import { generateToken } from "@repo/jwt/utils";
 import { catchAsync } from "../utils/catchAsync";
 import { callbackQuerySchema } from "@repo/zod-schemas/googleOAuth";
-import { userSchema } from "@repo/zod-schemas/user";
+import { googleDataSchema } from "@repo/zod-schemas/user";
 import { FRONT_END_URL } from "../config";
+import { prisma } from "@repo/db/client";
 
 const router = Router();
 
@@ -37,17 +38,40 @@ router.get(
     const oauth2 = google.oauth2({ version: "v2", auth: googleOAuthClient });
     const { data: googleUser } = await oauth2.userinfo.get();
 
-    console.log(googleUser);
-
-    const userPayload = userSchema.parse({
-      id: googleUser.id,
+    const googleData = googleDataSchema.parse({
+      googleId: googleUser.id,
       email: googleUser.email,
       firstName: googleUser.given_name,
       lastName: googleUser.family_name,
       picture: googleUser.picture,
     });
 
-    const jwtToken = await generateToken(userPayload);
+    const user = await prisma.user.upsert({
+      where: { googleId: googleData.googleId },
+      update: {
+        firstName: googleData.firstName,
+        lastName: googleData.lastName,
+        picture: googleData.picture,
+        email: googleData.email,
+      },
+      create: {
+        googleId: googleData.googleId,
+        firstName: googleData.firstName,
+        lastName: googleData.lastName,
+        picture: googleData.picture,
+        email: googleData.email,
+      },
+    });
+
+    console.log(user);
+
+    const jwtToken = await generateToken({
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      picture: user.picture,
+    });
 
     res.cookie("accessToken", jwtToken, {
       httpOnly: true,

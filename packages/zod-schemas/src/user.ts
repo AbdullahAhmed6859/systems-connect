@@ -11,12 +11,21 @@ const firstName = createNameSchema("first ");
 const lastName = createNameSchema("last ");
 const email = z.string().email();
 
-export const userSchema = z.object({
-  id,
+const userCommon = {
   email,
   firstName,
   lastName,
   picture: z.string().optional(),
+};
+
+export const googleDataSchema = z.object({
+  googleId: z.string(),
+  ...userCommon,
+});
+
+export const tokenDataSchema = z.object({
+  id,
+  ...userCommon,
 });
 
 export const userId = id;

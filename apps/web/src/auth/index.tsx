@@ -9,12 +9,12 @@ import React, {
   ReactNode,
 } from "react";
 import { apiClient } from "@/utils/apiClient";
-import { userSchema } from "@repo/zod-schemas/user";
+import { tokenDataSchema } from "@repo/zod-schemas/user";
 import { z } from "zod";
 import { BACKEND_URL } from "@/utils/config";
 
 // Define user type based on your JWT payload
-export type User = z.infer<typeof userSchema>;
+export type User = z.infer<typeof tokenDataSchema>;
 
 type AuthenticatedState = {
   user: User; // User is required and non-null
@@ -67,7 +67,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       const response = await apiClient.get("/auth/cookie-data");
       console.log(response.data.data.user);
-      const user = userSchema.parse(response.data.data.user);
+      const user = tokenDataSchema.parse(response.data.data.user);
       console.log(user);
       setUser(user);
       setStatus("authenticated");
