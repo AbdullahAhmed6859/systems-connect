@@ -1,7 +1,7 @@
 import { Button } from "@repo/shadcn/components/ui/button";
 import { ArrowRight, Users, MessageCircle } from "lucide-react";
 import Image from "next/image";
-import AuthButton from "../auth/AuthButton";
+import AuthButton from "@/auth/AuthButton";
 
 function HeroSection() {
   return (
@@ -25,7 +25,7 @@ function HeroSection() {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <AuthButton size="lg" type="page" />
+              <AuthButton size="lg" />
               <Button size="lg" variant="outline">
                 Learn More
                 <ArrowRight className="w-4 h-4 ml-2" />

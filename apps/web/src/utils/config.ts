@@ -1,1 +1,2 @@
-export const BACKEND_END_URL = process.env.NEXT_PUBLIC_BACKEND_END_URL;
+export const BACKEND_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";

@@ -8,10 +8,10 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import { apiClient } from "../utils/apiClient";
+import { apiClient } from "@/utils/apiClient";
 import { userSchema } from "@repo/zod-schemas/user";
 import { z } from "zod";
-import { BACKEND_END_URL } from "../utils/config";
+import { BACKEND_URL } from "@/utils/config";
 
 // Define user type based on your JWT payload
 export type User = z.infer<typeof userSchema>;
@@ -90,7 +90,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const encodedRedirect = encodeURIComponent(
       redirectTo ? `${baseUrl}${redirectTo}` : `${baseUrl}${currentPath}`
     );
-    window.location.href = `${BACKEND_END_URL}/auth/google?redirect_to=${encodedRedirect}`;
+    window.location.href = `${BACKEND_URL}/auth/google?redirect_to=${encodedRedirect}`;
   };
 
   const logout = async () => {

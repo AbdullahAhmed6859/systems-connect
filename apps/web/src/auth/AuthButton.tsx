@@ -11,10 +11,7 @@ function AuthButton({
   redirectTo = "/feed",
   size,
   variant,
-  type = "navbar",
-}: { redirectTo?: string; type?: "navbar" | "page" } & VariantProps<
-  typeof buttonVariants
->) {
+}: { redirectTo?: string } & VariantProps<typeof buttonVariants>) {
   const { isLoading, isAuthenticated, login } = useAuth();
   const router = useRouter();
 
