@@ -6,24 +6,25 @@ This directory contains all the layout-related components for the application, o
 
 ### Main Components
 
-- **`Navbar.tsx`** - Main navigation bar component
+- **`Navbar/`** - Complete navbar implementation in a dedicated folder
+  - **`Navbar.tsx`** - Main navigation bar component
+  - **`index.ts`** - Barrel export for the navbar (exports Navbar as default)
 - **`Footer.tsx`** - Application footer
-- **`index.ts`** - Barrel export for clean imports
+- **`index.ts`** - Main barrel export for all layout components
 
-### Navbar Sub-components
+### Navbar Folder Structure (`/Navbar/`)
 
+- **`Navbar.tsx`** - Main navbar orchestrator component
 - **`NavbarCenter.tsx`** - Center section with navigation links and search
 - **`NavbarRightSide.tsx`** - Right section with user menu and controls
 - **`MobileMenu.tsx`** - Mobile navigation menu overlay
 - **`NavLinks.tsx`** - Navigation links (responsive)
-
-### UI Components
-
 - **`SearchBar.tsx`** - Reusable search component with variants
 - **`SystemsLogo.tsx`** - Application logo component
 - **`UserImage.tsx`** - User avatar component
 - **`UserMenuButtons.tsx`** - User menu action buttons
 - **`UserMenuDropdown.tsx`** - User dropdown menu
+- **`index.ts`** - Exports default Navbar and all sub-components
 
 ### Configuration
 
@@ -54,27 +55,62 @@ This directory contains all the layout-related components for the application, o
 - Strong typing for better development experience
 - Reusable type definitions
 
-## Usage
+## Import Patterns
+
+### Importing the Main Navbar
 
 ```tsx
-// Import specific components
+import Navbar from "@/layout/Navbar"; // Default export from Navbar folder
+// OR
+import { Navbar } from "@/layout"; // From main layout barrel export
+```
+
+### Importing Navbar Sub-components
+
+```tsx
+// Individual imports for specific components
+import { SearchBar, NavbarCenter } from "@/layout/Navbar";
+
+// OR from main layout barrel
 import { SearchBar, NavbarCenter } from "@/layout";
+```
 
-// Or import everything
-import * as Layout from "@/layout";
+### Using Components
 
+```tsx
 // Use SearchBar with callback
 <SearchBar
   placeholder="Search posts..."
   onSearch={(query) => console.log(query)}
   variant="compact"
-/>;
+/>
 ```
+
+## Organization Benefits
+
+### Modular Structure
+
+- **Separation of Concerns**: Each navbar component has a single responsibility
+- **Easier Testing**: Individual components can be tested in isolation
+- **Better Maintainability**: Changes to navbar don't affect other layout components
+
+### Clean Imports
+
+- **Barrel Exports**: Main components easily accessible via index files
+- **Hierarchical Organization**: Related components grouped together
+- **Flexible Importing**: Choose between specific or grouped imports
+
+### Scalability
+
+- **Easy Extension**: New navbar features can be added as separate components
+- **Reusable Components**: SearchBar and other components can be used elsewhere
+- **Clear Dependencies**: Import paths clearly show component relationships
 
 ## Development Notes
 
-- All components are client-side (`"use client"`)
+- All navbar components are client-side (`"use client"`)
 - Uses Jotai for state management
 - Integrates with shadcn/ui components
 - Follows consistent naming conventions
-- Modular architecture for easy testing and maintenance
+- Proper relative import paths within the Navbar folder
+- The login button redirects to `${BACKEND_URL}/auth/google` from config

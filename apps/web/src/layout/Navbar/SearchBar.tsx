@@ -5,7 +5,7 @@ import { Input } from "@repo/shadcn/components/ui/input";
 import { Button } from "@repo/shadcn/components/ui/button";
 import { Search, X } from "lucide-react";
 import { cn } from "@repo/shadcn/lib/utils";
-import { SearchHandler, SearchBarVariant } from "./types";
+import { SearchHandler, SearchBarVariant } from "@/layout/types";
 
 interface SearchBarProps extends SearchHandler, SearchBarVariant {
   placeholder?: string;

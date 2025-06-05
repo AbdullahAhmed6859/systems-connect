@@ -3,8 +3,8 @@
 import React from "react";
 import NavLinks from "./NavLinks";
 import SearchBar from "./SearchBar";
-import { useAuth } from "../auth";
-import { SearchHandler } from "./types";
+import { useAuth } from "@/auth";
+import { SearchHandler } from "@/layout/types";
 
 export function NavbarCenter({ onSearch }: SearchHandler) {
   const { isAuthenticated } = useAuth();

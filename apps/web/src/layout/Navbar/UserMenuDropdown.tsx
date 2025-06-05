@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import React from "react";
-import { isUserMenuOpenAtom } from "../utils/atoms";
-import { User } from "../auth";
+import { isUserMenuOpenAtom } from "@/utils/atoms";
+import { User } from "@/auth";
 import UserMenuButtons from "./UserMenuButtons";
 
 function UserMenuDropdown({ user }: { user: User }) {

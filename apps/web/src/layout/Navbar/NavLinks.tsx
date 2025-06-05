@@ -1,8 +1,8 @@
 import { buttonVariants } from "@repo/shadcn/components/ui/button";
 import Link from "next/link";
 import { useSetAtom } from "jotai";
-import { navMenuAtom } from "../utils/atoms";
-import { NavLinkItem, ResponsiveComponent } from "./types";
+import { navMenuAtom } from "@/utils/atoms";
+import { NavLinkItem, ResponsiveComponent } from "@/layout/types";
 
 const links: NavLinkItem[] = [
   { name: "Home", href: "/" },

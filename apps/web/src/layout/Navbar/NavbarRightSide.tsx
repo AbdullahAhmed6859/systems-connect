@@ -1,11 +1,11 @@
 import { ModeToggle } from "@repo/shadcn/components/ModeToggle";
 import { Button } from "@repo/shadcn/components/ui/button";
 import React from "react";
-import AuthButton from "../auth/AuthButton";
-import { useAuth } from "../auth";
+import AuthButton from "@/auth/AuthButton";
+import { useAuth } from "@/auth";
 import { Bell, Menu, X } from "lucide-react";
 import { useAtom } from "jotai";
-import { isUserMenuOpenAtom, navMenuAtom } from "../utils/atoms";
+import { isUserMenuOpenAtom, navMenuAtom } from "@/utils/atoms";
 import UserImage from "./UserImage";
 import UserMenuDropdown from "./UserMenuDropdown";
 import { useSetAtom } from "jotai";

@@ -2,13 +2,13 @@
 
 import React from "react";
 import { useAtomValue } from "jotai";
-import { navMenuAtom } from "../utils/atoms";
-import { useAuth } from "../auth";
+import { navMenuAtom } from "@/utils/atoms";
+import { useAuth } from "@/auth";
 import NavLinks from "./NavLinks";
 import UserImage from "./UserImage";
 import UserMenuButtons from "./UserMenuButtons";
 import SearchBar from "./SearchBar";
-import { SearchHandler } from "./types";
+import { SearchHandler } from "@/layout/types";
 
 export function MobileMenu({ onSearch }: SearchHandler) {
   const isMenuOpen = useAtomValue(navMenuAtom);

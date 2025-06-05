@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import SystemsLogo from "./SystemsLogo";
+import SystemsLogo from "@/layout/SystemsLogo";
 import NavbarRightSide from "./NavbarRightSide";
 import NavbarCenter from "./NavbarCenter";
 import MobileMenu from "./MobileMenu";

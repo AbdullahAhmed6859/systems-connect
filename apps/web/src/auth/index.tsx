@@ -8,10 +8,10 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import { apiClient } from "../utils/apiClient";
+import { apiClient } from "@/utils/apiClient";
 import { userSchema } from "@repo/zod-schemas/user";
 import { z } from "zod";
-import { BACKEND_URL } from "../utils/config";
+import { BACKEND_URL } from "@/utils/config";
 
 // Define user type based on your JWT payload
 export type User = z.infer<typeof userSchema>;

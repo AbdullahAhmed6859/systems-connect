@@ -1,7 +1,7 @@
 import { Button } from "@repo/shadcn/components/ui/button";
 import { ArrowRight, Users, MessageCircle } from "lucide-react";
 import Image from "next/image";
-import AuthButton from "../auth/AuthButton";
+import AuthButton from "@/auth/AuthButton";
 
 function HeroSection() {
   return (
