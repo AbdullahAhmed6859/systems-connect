@@ -1,23 +1,14 @@
 import { verifyToken } from "@repo/jwt/utils";
 import { catchAsync } from "../utils/catchAsync";
 import { AppError } from "../utils/AppError";
-
-export interface UserPayload {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  picture?: string;
-  iat: number;
-  exp?: number; // optional, may not exist if no expiresIn used
-}
+import { TokenData } from "@repo/zod-schemas/user";
 
 export const protect = catchAsync(async (req, res, next) => {
   const token = req.cookies.accessToken;
   if (!token)
     throw AppError.unauthorized("No token found", { token: "No token found" });
 
-  const decoded = (await verifyToken(token)) as UserPayload;
+  const decoded = (await verifyToken(token)) as TokenData;
   req.user = decoded;
   next();
 });

@@ -21,7 +21,7 @@ const mockPosts = [
     published: true,
     authorId: 1,
     author: {
-      userId: 1,
+      id: 1,
       firstName: "Ahmed",
       lastName: "Khan",
       bio: "Software Engineer at Systems Limited",
@@ -43,7 +43,7 @@ const mockPosts = [
     published: true,
     authorId: 2,
     author: {
-      userId: 2,
+      id: 2,
       firstName: "Sarah",
       lastName: "Ahmed",
       bio: "Product Manager",
@@ -65,7 +65,7 @@ const mockPosts = [
     published: true,
     authorId: 3,
     author: {
-      userId: 3,
+      id: 3,
       firstName: "Muhammad",
       lastName: "Ali",
       bio: "Engineering Manager",
@@ -114,7 +114,7 @@ function Feed() {
       published: true,
       authorId: 999, // This would come from the current user
       author: {
-        userId: 999,
+        id: 999,
         firstName: "You", // This would come from the current user
         lastName: "",
         bio: "Systems Limited Employee",

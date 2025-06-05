@@ -7,7 +7,7 @@ import { useAuth } from "@/auth";
 
 // Mock user profile data based on Prisma schema
 const mockUserProfile = {
-  userId: 1,
+  id: 1,
   firstName: "John",
   lastName: "Doe" as string | null,
   bio: "Passionate software engineer with 5+ years of experience building scalable web applications. Love working with React, Node.js, and exploring new technologies. Always excited to collaborate on innovative projects!",
@@ -33,7 +33,7 @@ const mockUserPosts = [
     published: true,
     authorId: 1,
     author: {
-      userId: 1,
+      id: 1,
       firstName: "John",
       lastName: "Doe" as string | null,
       bio: "Software Engineer at Systems Limited",
@@ -55,7 +55,7 @@ const mockUserPosts = [
     published: true,
     authorId: 1,
     author: {
-      userId: 1,
+      id: 1,
       firstName: "John",
       lastName: "Doe" as string | null,
       bio: "Software Engineer at Systems Limited",
@@ -93,7 +93,7 @@ function ProfilePage() {
       // Map current user data to profile format
       const userProfile = {
         ...mockUserProfile,
-        userId: user.id || 1,
+        id: user.id || 1,
         firstName: user.firstName,
         lastName: user.lastName || null,
       };

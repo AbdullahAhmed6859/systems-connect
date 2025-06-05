@@ -28,5 +28,7 @@ export const tokenDataSchema = z.object({
   ...userCommon,
 });
 
+export type TokenData = z.infer<typeof tokenDataSchema>;
+
 export const userId = id;
 export const userIdParams = z.object({ userId });

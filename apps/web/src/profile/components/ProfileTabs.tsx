@@ -16,7 +16,7 @@ interface Post {
   published: boolean;
   authorId: number;
   author: {
-    userId: number;
+    id: number;
     firstName: string;
     lastName: string | null;
     bio: string | null;
@@ -30,7 +30,7 @@ interface Post {
 }
 
 interface UserProfile {
-  userId: number;
+  id: number;
   firstName: string;
   lastName: string | null;
   bio: string | null;

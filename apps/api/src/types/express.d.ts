@@ -1,9 +1,9 @@
 import "express";
-import { UserPayload } from "../middleware/auth";
+import { TokenData } from "@repo/zod-schemas/user";
 declare global {
   namespace Express {
     interface Request {
-      user?: UserPayload;
+      user?: TokenData;
     }
   }
 }

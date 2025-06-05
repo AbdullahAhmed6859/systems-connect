@@ -7,6 +7,7 @@ import { errorHandler } from "./middleware/errorHandler";
 import { prisma } from "@repo/db/client";
 import cookieParser from "cookie-parser";
 import { authRouter } from "./routers/authRouter";
+import { userRouter } from "./routers/userRouter";
 import { protect } from "./middleware/auth";
 
 const whitelist = [FRONT_END_URL];
@@ -33,6 +34,7 @@ if (ENV === "DEV") app.use(morgan("dev"));
 
 // routers
 app.use("/auth", authRouter);
+app.use("/user", userRouter);
 
 app.get("/", protect, (req, res) =>
   ok(res, { message: "Welcome to backend API" })
