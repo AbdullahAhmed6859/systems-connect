@@ -1,7 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { PostCard, CreatePost, PostSkeletonList } from "@/feed/components";
+import {
+  PostCard,
+  CreatePost,
+  PostSkeletonList,
+  ProfileSidebar,
+} from "@/posts/components";
 import { useAuth } from "@/auth";
 
 // Mock data based on Prisma schema - this would come from your API
@@ -178,39 +183,55 @@ function Feed() {
 
   return (
     <div className="container mx-auto xl:px-16 lg:px-8 px-4 py-8">
-      <div className="max-w-2xl mx-auto">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Feed</h1>
-          <p className="text-muted-foreground">
-            Stay connected with your colleagues and share what&apos;s happening.
-          </p>
+      <div className="flex gap-8">
+        {/* Left Sidebar - Profile */}
+        <div className="hidden lg:block w-80 flex-shrink-0">
+          <div className="sticky top-20">
+            <ProfileSidebar />
+          </div>
         </div>
 
-        {/* Create Post Component */}
-        <CreatePost onSubmit={handleCreatePost} />
+        {/* Main Content - Posts Feed */}
+        <div className="flex-1 max-w-2xl mx-auto lg:mx-0">
+          {/* Page Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-2">Feed</h1>
+            <p className="text-muted-foreground">
+              Stay connected with your colleagues and share what&apos;s
+              happening.
+            </p>
+          </div>
 
-        {/* Posts Feed */}
-        <div className="space-y-6">
-          {loading ? (
-            <PostSkeletonList count={3} />
-          ) : posts.length > 0 ? (
-            posts.map((post) => (
-              <PostCard
-                key={post.id}
-                post={post}
-                onLike={handleLike}
-                onComment={handleComment}
-                onShare={handleShare}
-              />
-            ))
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                No posts yet. Be the first to share something!
-              </p>
-            </div>
-          )}
+          {/* Create Post Component */}
+          <CreatePost onSubmit={handleCreatePost} />
+
+          {/* Posts Feed */}
+          <div className="space-y-6">
+            {loading ? (
+              <PostSkeletonList count={3} />
+            ) : posts.length > 0 ? (
+              posts.map((post) => (
+                <PostCard
+                  key={post.id}
+                  post={post}
+                  onLike={handleLike}
+                  onComment={handleComment}
+                  onShare={handleShare}
+                />
+              ))
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">
+                  No posts yet. Be the first to share something!
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right Sidebar - Could be used for trending, suggestions, etc. */}
+        <div className="hidden xl:block w-80 flex-shrink-0">
+          {/* This space could be used for additional content like trending posts, suggestions, etc. */}
         </div>
       </div>
     </div>
