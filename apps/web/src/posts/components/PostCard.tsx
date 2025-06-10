@@ -14,7 +14,7 @@ import { Heart, MessageCircle, Share2, MoreHorizontal } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 
 // Types based on Prisma schema
-interface Post {
+export interface Post {
   id: number;
   createdAt: string;
   updatedAt: string;

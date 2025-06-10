@@ -22,7 +22,7 @@ import {
 import { formatDistanceToNow } from "date-fns";
 
 // Types based on Prisma schema
-interface UserProfile {
+export interface UserProfile {
   id: number;
   firstName: string;
   lastName: string | null;
